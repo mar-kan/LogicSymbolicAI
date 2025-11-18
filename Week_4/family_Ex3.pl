@@ -34,9 +34,9 @@ distant_ancestor(DistAnc, Des) :-
 
 % using negation
 distant_ancestor_neg(DistAnc, Des) :-
+    ancestor(DistAnc, Des),
     \+ parent(DistAnc, Des),
-    \+ grandparent(DistAnc, Des),
-    ancestor(DistAnc, Des).
+    \+ grandparent(DistAnc, Des).
 
 % 2.3
 known_ancestry(Des) :-

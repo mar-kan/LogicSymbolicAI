@@ -11,9 +11,11 @@ t_value(Assignment, neg(F), f) :-
 t_value(Assignment, and(F1, F2), t) :-
     t_value(Assignment, F1, t),
     t_value(Assignment, F2, t).
-t_value(Assignment, and(F1, F2), f) :-
-    (t_value(Assignment, F1, f);
-     t_value(Assignment, F2, f)).
+
+t_value(Assignment, and(F1, _), f) :-
+    \+ t_value(Assignment, F1, t).
+t_value(Assignment, and(_, F2), f) :-
+    \+ t_value(Assignment, F2, t).
 
 % Disjunction
 t_value(Assignment, or(F1, F2), t) :-
@@ -33,11 +35,10 @@ t_value(Assignment, implies(F1, F2), f) :-
 
 % Equivalence
 t_value(Assignment, equiv(F1, F2), t) :-
-    (t_value(Assignment, F1, t), t_value(Assignment, F2, t));
-    (t_value(Assignment, F1, f), t_value(Assignment, F2, f)).
+    t_value(Assignment, F1, t) is t_value(Assignment, F2, t).
 t_value(Assignment, equiv(F1, F2), f) :-
-    (t_value(Assignment, F1, t), t_value(Assignment, F2, f));
-    (t_value(Assignment, F1, f), t_value(Assignment, F2, t)).
+    \+ t_value(Assignment, F1, t) is t_value(Assignment, F2, t).
+
 
 % Evaluate p AND q when p is true and q is false
 % ?- t_value([p-t, q-f], and(p, q), V).
@@ -55,3 +56,6 @@ t_value(Assignment, equiv(F1, F2), f) :-
 % ?- t_value([p-Vp, q-Vq], and(p, q), t).
 % Vp = Vq, Vq = t.
 
+
+% tried negation on conjunction and equivalence
+% For negation, disjunction and implication could not think something besides reversing some t/f and adding negation

@@ -21,4 +21,5 @@ myplus(s(X), s(Y), s(s(Z))) :-
     myplus(X,Y,Z).
 
 mymember(X,[X|_]).
-mymember(X,[_|T]) :- mymember(X,T).
+mymember(X,[_|T]) :- 
+    mymember(X,T).

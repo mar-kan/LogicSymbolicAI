@@ -1,3 +1,4 @@
+
 initial_state(wj(N,Capacities,_),jugs(N,Capacities,Empties)) :-
 	zeros(N,Empties).
 
@@ -39,6 +40,15 @@ adjust(Liquid, Excess,0,Liquid) :- Excess =< 0.
 adjust(Liquid,Excess,Excess,V) :- Excess > 0, V is Liquid - Excess.
 
 legal(_).
+
+value(wj(_,_,Goal),jugs(_,_,Jugs),Val) :-
+	values(Goal,Jugs,Vals),
+	sum_list(Vals,Val).
+
+values(_,[],[]).
+values(Goal,[Jug|Jugs],[Val|Vals]) :-
+	Val is abs(Goal - Jug),
+	values(Goal,Jugs,Vals).
 
 %Utilities
 zeros(0,[]).

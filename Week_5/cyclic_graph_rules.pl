@@ -1,13 +1,9 @@
-path(X,Y, ToBeAvoided, [X, Y]) :-
-    edge(X,Y),
-    \+ member(Y, ToBeAvoided).
+:- op(900, xfx, <--).
+:- dynamic path/2.
+:- dynamic edge/2.
 
-path(X,Z, ToBeAvoided, [X|P]) :-
-    edge(X,Y),
-    \+ member(Y, ToBeAvoided),
-    path(Y,Z,[Y|ToBeAvoided], P).
-path(X,Y,P) :-
-    path(X,Y,[],P).
+path(X,Y) <-- [edge(X,Y)].
+path(X,Z) <-- [edge(X,Y), path(Y,Z)].
 
 edge(1,2).
 edge(2,3).

@@ -1,3 +1,7 @@
+:-discontiguous chest/1.
+:-discontiguous barrier/1.
+
+
 space(S,E) :-
     empty_space(S,E).
 space(S,E,L) :-

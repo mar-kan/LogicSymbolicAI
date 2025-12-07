@@ -37,9 +37,9 @@ ordinary_world(S,E) <-- [ordinary_level_chain(S,M), team(M,E)].
 level_chain(S,E) <-- [level(S,M), level(M,E)].
 level_chain(S,E) <-- [level(S,M), level_chain(M,E)].
 
-path(S,S).
-path(S,E) <-- [level(S,M), path(M,E)].
+levels(S,S).
+levels(S,E) <-- [level(S,M), levels(M,E)].
 
-bonus_in_levels(S,E) <-- [level_chain(S,E), bonus_level(B1,B2), path(S,B1), path(B2,E)].
+bonus_in_levels(S,E) <-- [level_chain(S,E), bonus_level(B1,B2), levels(S,B1), levels(B2,E)].
 
 bonus_world(S,E) <-- [level_chain(S,M), bonus_in_levels(S,M), team(M,E)].

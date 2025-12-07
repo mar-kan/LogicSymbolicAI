@@ -49,18 +49,18 @@ level_chain(S,E) :-
     level(S,M),
     level_chain(M,E).
 
-% helper path from start to end
-path(S,S).
-path(S,E) :-
+% helper levels from start to end
+levels(S,S).
+levels(S,E) :-
     level(S,M),
-    path(M,E).
+    levels(M,E).
 
-% helper checks if there is a bonus level in path
+% helper checks if there is a bonus level in levels
 bonus_in_levels(S,E) :-
     level_chain(S,E),
     bonus_level(B1,B2),
-    path(S,B1),
-    path(B2,E).
+    levels(S,B1),
+    levels(B2,E).
     %!.
 
 bonus_world(S,E) :-
